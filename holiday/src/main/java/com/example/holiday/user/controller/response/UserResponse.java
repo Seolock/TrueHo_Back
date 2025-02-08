@@ -18,6 +18,8 @@ public class UserResponse {
     private String detail;
     private String academy;
     private String licence;
+    private String major;
+
     public static UserResponse from(UserDto userDto) {
         return UserResponse.builder()
                 .name(userDto.getName())
@@ -28,6 +30,7 @@ public class UserResponse {
                 .detail(userDto.getDetail())
                 .academy(userDto.getAcademy())
                 .licence(userDto.getLicence())
+                .major(userDto.getMajor())
                 .build();
 
     }

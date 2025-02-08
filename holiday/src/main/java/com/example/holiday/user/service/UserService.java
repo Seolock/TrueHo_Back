@@ -8,6 +8,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -26,5 +29,12 @@ public class UserService {
         User user = userRepository.findById(id).orElse(null);
         user.update(UserDto.from(userRequest));
         return UserDto.from(user);
+    }
+
+
+
+    public List<UserDto> findAllHausums() {
+        List<UserDto> userDtoList = userRepository.findAll().stream().map(UserDto::from).toList();
+        return userDtoList;
     }
 }

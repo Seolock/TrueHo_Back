@@ -20,8 +20,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long showing;
     private String name;
     private String studentId;
+    private String major;
     private String work;
     private String company;
     private String oneLine;
@@ -32,8 +34,10 @@ public class User {
 
     public static User from(UserRequest userRequest) {
         return User.builder()
+                .showing(1L)
                 .name(userRequest.getName())
                 .studentId(userRequest.getStudentId())
+                .major(userRequest.getMajor())
                 .work(userRequest.getWork())
                 .company(userRequest.getCompany())
                 .oneLine(userRequest.getOneLine())

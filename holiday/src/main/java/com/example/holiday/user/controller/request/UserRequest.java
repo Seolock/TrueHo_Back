@@ -17,9 +17,10 @@ public class UserRequest {
     private String detail;
     private String academy;
     private String licence;
+    private String major;
 
 
-    public UserRequest(String name, String studentId, String work, String company, String oneLine, String detail, String academy, String licence) {
+    public UserRequest(String name, String studentId, String work, String company, String oneLine, String detail, String academy, String licence, String major) {
         this.name = name;
         this.studentId = studentId;
         this.work = work;
@@ -28,6 +29,7 @@ public class UserRequest {
         this.detail = detail;
         this.academy = academy;
         this.licence = licence;
+        this.major = major;
 
     }
 }

@@ -14,6 +14,7 @@ import lombok.Setter;
 public class UserDto {
     private Long id;
 
+    private Long showing;
     private String name;
     private String studentId;
     private String work;
@@ -22,13 +23,16 @@ public class UserDto {
     private String detail;
     private String academy;
     private String licence;
+    private String major;
 
 
     public static UserDto from(User user) {
         return UserDto.builder()
+                .showing(user.getShowing())
                 .name(user.getName())
                 .studentId(user.getStudentId())
                 .work(user.getWork())
+                .major(user.getMajor())
                 .company(user.getCompany())
                 .oneLine(user.getOneLine())
                 .detail(user.getDetail())
@@ -50,5 +54,7 @@ public class UserDto {
                 .licence(userRequest.getLicence())
                 .build();
     }
+
+
 
 }
