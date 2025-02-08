@@ -2,6 +2,6 @@ package com.example.holiday.chat;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
-
+public interface ChatRepository extends JpaRepository<Chat, Long> {
+    
 }
