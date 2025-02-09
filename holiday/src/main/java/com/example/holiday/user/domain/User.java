@@ -20,6 +20,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String googleName;
+    private String googleEmail;
+    private String googleUserId;
+
+    private Long hansum;
     private Long showing;
     private String name;
     private String studentId;
@@ -30,34 +35,28 @@ public class User {
     private String detail;
     private String academy;
     private String licence;
+    private String imgUrl;
 
 
-    public static User from(UserRequest userRequest) {
-        return User.builder()
-                .showing(1L)
-                .name(userRequest.getName())
-                .studentId(userRequest.getStudentId())
-                .major(userRequest.getMajor())
-                .work(userRequest.getWork())
-                .company(userRequest.getCompany())
-                .oneLine(userRequest.getOneLine())
-                .detail(userRequest.getDetail())
-                .academy(userRequest.getAcademy())
-                .licence(userRequest.getLicence())
-                .build();
-
-
+    public User(String userId, String email, String name){
+        googleName = name;
+        googleEmail = email;
+        googleUserId = userId;
     }
 
-    public void update(UserDto userDto) {
-        this.name = userDto.getName();
-        this.studentId = userDto.getStudentId();
-        this.work = userDto.getWork();
-        this.company = userDto.getCompany();
-        this.oneLine = userDto.getOneLine();
-        this.detail = userDto.getDetail();
-        this.academy = userDto.getAcademy();
-        this.licence = userDto.getLicence();
+
+    public void update(UserRequest userRequest) {
+        this.showing = 1L;
+        this.hansum = userRequest.getHansum();
+        this.name = userRequest.getName();
+        this.studentId = userRequest.getStudentId();
+        this.major = userRequest.getMajor();
+        this.work = userRequest.getWork();
+        this.company = userRequest.getCompany();
+        this.oneLine = userRequest.getOneLine();
+        this.detail = userRequest.getDetail();
+        this.academy = userRequest.getAcademy();
+        this.licence = userRequest.getLicence();
 
     }
 

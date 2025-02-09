@@ -5,6 +5,9 @@ import com.example.holiday.chat.ChatRepository;
 import com.example.holiday.chat.dto.ChatRequest;
 import com.example.holiday.chat.dto.ChatResponse;
 import com.example.holiday.chatroom.dto.ChatRoomResponse;
+import com.example.holiday.user.controller.response.UserProfileResponse;
+import com.example.holiday.user.domain.User;
+import com.example.holiday.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,7 @@ public class ChatRoomService {
 
     private final ChatRoomRepository chatRoomRepository;
     private final ChatRepository chatRepository;
+    private final UserRepository userRepository;
 
 
     public ChatResponse createChatRoom(Long id, ChatRequest chatRequest, Long userId) {
@@ -36,8 +40,9 @@ public class ChatRoomService {
         List<ChatRoom> list=new ArrayList<>();
         if(list1!=null) list.addAll(list1);
         if(list2!=null) list.addAll(list2);
-        list.sort(Comparator.comparing(ChatRoom::getModified));
-        return list.stream().map(chatRoom -> ChatRoomResponse.chatRoomEtoR(chatRoom,userId)).toList();
+        list.sort(Comparator.comparing(ChatRoom::getModified)); //확인 필요
+        User user=userRepository.findById(userId).orElse(null);
+        return list.stream().map(chatRoom -> ChatRoomResponse.chatRoomEtoR(chatRoom,user)).toList();
     }
 
 
@@ -58,7 +63,11 @@ public class ChatRoomService {
     }
 
 
-    public Object getChatRoomProfile(Long id, Long userId) {
-
+    public UserProfileResponse getChatRoomProfile(Long id, Long userId) {
+        ChatRoom chatRoom=chatRoomRepository.findById(id).orElse(null);
+        if(chatRoom==null) return null;
+        User user=userRepository.findById(chatRoom.getUserId1().equals(userId)?chatRoom.getUserId2():chatRoom.getUserId1()).orElse(null);
+        if(user==null) return null;
+        return UserProfileResponse.profileEtoR(user);
     }
 }

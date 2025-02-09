@@ -19,6 +19,7 @@ public class UserResponse {
     private String academy;
     private String licence;
     private String major;
+    private String imgUrl;
 
     public static UserResponse from(UserDto userDto) {
         return UserResponse.builder()
@@ -31,6 +32,7 @@ public class UserResponse {
                 .academy(userDto.getAcademy())
                 .licence(userDto.getLicence())
                 .major(userDto.getMajor())
+                .imgUrl(userDto.getImgUrl())
                 .build();
 
     }

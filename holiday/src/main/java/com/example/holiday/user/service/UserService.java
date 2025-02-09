@@ -27,14 +27,31 @@ public class UserService {
     @Transactional
     public UserDto updateUser(Long id, UserRequest userRequest) {
         User user = userRepository.findById(id).orElse(null);
-        user.update(UserDto.from(userRequest));
+        user.update(userRequest);
         return UserDto.from(user);
     }
 
 
 
     public List<UserDto> findAllHausums() {
-        List<UserDto> userDtoList = userRepository.findAll().stream().map(UserDto::from).toList();
+        List<UserDto> userDtoList = userRepository.findAllByHansum(1L).stream().map(UserDto::from).toList();
         return userDtoList;
+    }
+
+
+    public Long checkExist(String userId, String email, String name) {
+        User user=userRepository.findByGoogleUserId(userId).orElse(null);
+        if(user==null) return null;
+        return user.getId();
+    }
+
+    public Long addUser(String userId, String email, String name) {
+        User user=userRepository.findByGoogleUserId(userId).orElse(null);
+        if(user==null){
+            User newUser=new User(userId,email,name);
+            userRepository.save(newUser);
+            return null;
+        }
+        return user.getId();
     }
 }

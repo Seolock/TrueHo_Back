@@ -1,6 +1,7 @@
 package com.example.holiday.chatroom.dto;
 
 import com.example.holiday.chatroom.ChatRoom;
+import com.example.holiday.user.domain.User;
 import lombok.Builder;
 
 @Builder
@@ -8,17 +9,16 @@ public class ChatRoomResponse {
 
     private Long id;
     private String name;
-    private String imageUrl;
+    private String imgUrl;
     private String lastChat;
     private Long flag;
 
 
-    public static ChatRoomResponse chatRoomEtoR(ChatRoom chatRoom, Long userId){
-        Long opposite=chatRoom.getUserId1().equals(userId)?chatRoom.getUserId2():chatRoom.getUserId1();
+    public static ChatRoomResponse chatRoomEtoR(ChatRoom chatRoom, User user){
         return ChatRoomResponse.builder()
                 .id(chatRoom.getId())
-                .name()
-                .imageUrl()
+                .name(user.getName())
+                .imgUrl(user.getImgUrl())
                 .lastChat(chatRoom.getLastChat().getContent())
                 .flag(chatRoom.getLastChat().getRead().equals(0L)?1L:0L)
                 .build();
