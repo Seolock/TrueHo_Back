@@ -16,14 +16,17 @@ public class HansumResponse {
     private String major;
     private String work;
     private String detail;
+    private String imgUrl;
 
 
     public static HansumResponse from(UserDto userDto) {
         return HansumResponse.builder()
+                .id(userDto.getId())
                 .name(userDto.getName())
                 .work(userDto.getWork())
                 .detail(userDto.getDetail())
                 .major(userDto.getMajor())
+                .imgUrl(userDto.getImgUrl())
                 .build();
 
     }

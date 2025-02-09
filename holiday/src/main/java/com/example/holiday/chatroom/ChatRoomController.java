@@ -3,6 +3,8 @@ package com.example.holiday.chatroom;
 import com.example.holiday.chat.dto.ChatRequest;
 import com.example.holiday.chat.dto.ChatResponse;
 import com.example.holiday.chatroom.dto.ChatRoomResponse;
+import com.example.holiday.user.controller.response.UserProfileResponse;
+import com.example.holiday.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +18,13 @@ public class ChatRoomController {
 
 
     private final ChatRoomService chatRoomService;
-
+    private final UserService userService;
 
     Long checkSession(HttpSession session) {
-        return null;
+        String userId = (String) session.getAttribute("userId");
+        String email = (String) session.getAttribute("email");
+        String name = (String) session.getAttribute("name");
+        return userService.checkExist(userId, email, name);
     }
 
 
@@ -51,7 +56,7 @@ public class ChatRoomController {
 
 
     @GetMapping("/chat/profile/{id}")
-    public ResponseEntity<> getChatRoomProfile(@PathVariable Long id, HttpSession session){
+    public ResponseEntity<UserProfileResponse> getChatRoomProfile(@PathVariable Long id, HttpSession session){
         Long userId = checkSession(session);
         if(userId == null) return ;
         return ResponseEntity.ok().body(chatRoomService.getChatRoomProfile(id, userId));

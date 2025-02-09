@@ -12,22 +12,26 @@ import lombok.Setter;
 
 
 public class UserDto {
-    private Long id;
 
+    private Long id;
+    private Long hansum;
     private Long showing;
     private String name;
     private String studentId;
+    private String major;
     private String work;
     private String company;
     private String oneLine;
     private String detail;
     private String academy;
     private String licence;
-    private String major;
+    private String imgUrl;
 
 
     public static UserDto from(User user) {
         return UserDto.builder()
+                .id(user.getId())
+                .hansum(user.getHansum())
                 .showing(user.getShowing())
                 .name(user.getName())
                 .studentId(user.getStudentId())
@@ -38,23 +42,8 @@ public class UserDto {
                 .detail(user.getDetail())
                 .academy(user.getAcademy())
                 .licence(user.getLicence())
-                .build();
-
-    }
-
-    public static UserDto from(UserRequest userRequest){
-        return UserDto.builder()
-                .name(userRequest.getName())
-                .studentId(userRequest.getStudentId())
-                .work(userRequest.getWork())
-                .company(userRequest.getCompany())
-                .oneLine(userRequest.getOneLine())
-                .detail(userRequest.getDetail())
-                .academy(userRequest.getAcademy())
-                .licence(userRequest.getLicence())
+                .imgUrl(user.getImgUrl())
                 .build();
     }
-
-
 
 }
