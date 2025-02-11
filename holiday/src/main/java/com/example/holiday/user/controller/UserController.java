@@ -1,5 +1,6 @@
 package com.example.holiday.user.controller;
 
+import com.example.holiday.login.LoginResponse;
 import com.example.holiday.user.controller.request.UserRequest;
 import com.example.holiday.user.controller.response.HansumResponse;
 import com.example.holiday.user.controller.response.MyPageResponse;

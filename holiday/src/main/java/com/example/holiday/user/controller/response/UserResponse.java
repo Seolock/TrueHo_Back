@@ -1,24 +1,27 @@
 package com.example.holiday.user.controller.response;
 
+import com.example.holiday.user.domain.Detail;
 import com.example.holiday.user.dto.UserDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashMap;
+import java.util.List;
 
 
 @Getter
 @Setter
 @Builder
 public class UserResponse {
+    private String hansum;
     private String name;
-    private String studentId;
+    private String admission;
+    private String graduation;
     private String work;
-    private String company;
-    private String oneLine;
-    private String detail;
-    private String academy;
-    private String licence;
     private String major;
+    private List<Detail> history;
+    private String generation;
     private String imgUrl;
 
     public static UserResponse from(UserDto userDto) {

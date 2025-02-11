@@ -1,10 +1,13 @@
 package com.example.holiday.user.dto;
 
 import com.example.holiday.user.controller.request.UserRequest;
+import com.example.holiday.user.domain.Detail;
 import com.example.holiday.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,17 +17,15 @@ import lombok.Setter;
 public class UserDto {
 
     private Long id;
+    private Long showing;
     private Long hansum;
-    private Long state;
     private String name;
-    private String studentId;
-    private String major;
+    private String admission;
+    private String graduation;
     private String work;
-    private String company;
-    private String oneLine;
-    private String detail;
-    private String academy;
-    private String licence;
+    private String major;
+    private List<Detail> history;
+    private String generation;
     private String imgUrl;
 
 
@@ -32,16 +33,11 @@ public class UserDto {
         return UserDto.builder()
                 .id(user.getId())
                 .hansum(user.getHansum())
-                .state(user.getState())
+                .showing(user.getShowing())
                 .name(user.getName())
-                .studentId(user.getStudentId())
                 .work(user.getWork())
                 .major(user.getMajor())
-                .company(user.getCompany())
-                .oneLine(user.getOneLine())
-                .detail(user.getDetail())
-                .academy(user.getAcademy())
-                .licence(user.getLicence())
+                .history(user.getHistory())
                 .imgUrl(user.getImgUrl())
                 .build();
     }
