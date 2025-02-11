@@ -44,6 +44,19 @@ public class UserController {
         }
     }
 
+    @PostMapping("/user/image")
+    public ResponseEntity<Object> uploadImage2(@RequestParam("image") MultipartFile file, HttpSession session) {
+        Long userId = checkSession(session);
+        if (userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
+        try {
+            String uploadUrl = s3service.uploadFiles(file, "holiday/");
+            userService.saveImage(uploadUrl,userId);
+            return ResponseEntity.ok(new ImageResponse(uploadUrl));
+        } catch (Exception e) {
+            return ResponseEntity.ok(new LoginResponse("Failed to upload file"));
+        }
+    }
+
     @PutMapping("/main/register")
     public ResponseEntity<Object> userRegister(@RequestBody UserRequest userRequest, HttpSession session) {
         Long userId = checkSession(session);
