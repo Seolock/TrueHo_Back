@@ -5,7 +5,6 @@ import com.example.holiday.chat.ChatRepository;
 import com.example.holiday.chat.dto.ChatRequest;
 import com.example.holiday.chat.dto.ChatResponse;
 import com.example.holiday.chatroom.dto.ChatRoomResponse;
-import com.example.holiday.user.controller.response.UserProfileResponse;
 import com.example.holiday.user.domain.User;
 import com.example.holiday.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,8 +40,14 @@ public class ChatRoomService {
         if(list1!=null) list.addAll(list1);
         if(list2!=null) list.addAll(list2);
         list.sort(Comparator.comparing(ChatRoom::getModified)); //확인 필요
-        User user=userRepository.findById(userId).orElse(null);
-        return list.stream().map(chatRoom -> ChatRoomResponse.chatRoomEtoR(chatRoom,user)).toList();
+        return list.stream().map(chatRoom -> ChatRoomResponse.chatRoomEtoR(chatRoom,getOtherUser(chatRoom,userId))).toList();
+    }
+
+    User getOtherUser(ChatRoom chatRoom, Long userId) {
+        User user;
+        if(chatRoom.getUserId1().equals(userId)) user=userRepository.findById(chatRoom.getUserId2()).orElse(null);
+        else user=userRepository.findById(chatRoom.getUserId1()).orElse(null);
+        return user;
     }
 
 

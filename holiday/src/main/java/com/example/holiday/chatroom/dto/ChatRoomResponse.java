@@ -15,7 +15,7 @@ public class ChatRoomResponse {
     private String name;
     private String imgUrl;
     private String lastChat;
-    private Long flag;
+    private Long unreadMessage;
 
 
     public static ChatRoomResponse chatRoomEtoR(ChatRoom chatRoom, User user){
@@ -24,7 +24,7 @@ public class ChatRoomResponse {
                 .name(user.getName())
                 .imgUrl(user.getImgUrl())
                 .lastChat(chatRoom.getLastChat().getContent())
-                .flag(chatRoom.getLastChat().getReadState()?0L:1L)
+                .unreadMessage(chatRoom.getLastChat().getReadState()?0L:1L)
                 .build();
     }
 }
