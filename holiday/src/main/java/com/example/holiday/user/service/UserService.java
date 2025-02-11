@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private String[] list={"국제어문","경영경제","법학부","커뮤니케이션","상담복지","생명과학","공간환경시스템","전산전자","콘텐츠융합디자인","기계제어","ICT창업학부"};
 
     public UserDto findUserById(Long id) {
         UserDto userDto = UserDto.from(userRepository.findById(id).orElse(null));
@@ -33,9 +35,14 @@ public class UserService {
 
 
 
-    public List<UserDto> findAllHausums() {
-        List<UserDto> userDtoList = userRepository.findAllByHansum(1L).stream().map(UserDto::from).toList();
-        return userDtoList;
+    public List<UserDto> findAllHausums(Long id) {
+        List<UserDto> userDtoList = userRepository.findAllByHansumAndState(1L,1L).stream().map(UserDto::from).toList();
+        if(id==0) return userDtoList;
+        List<UserDto> userDtoList2 = new ArrayList<>();
+        for (UserDto userDto : userDtoList) {
+            if(userDto.getMajor().equals(list[id.intValue()-1])) userDtoList2.add(userDto);
+        }
+        return userDtoList2;
     }
 
 
