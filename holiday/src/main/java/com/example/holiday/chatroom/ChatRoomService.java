@@ -5,7 +5,6 @@ import com.example.holiday.chat.ChatRepository;
 import com.example.holiday.chat.dto.ChatRequest;
 import com.example.holiday.chat.dto.ChatResponse;
 import com.example.holiday.chatroom.dto.ChatRoomResponse;
-import com.example.holiday.user.controller.response.UserProfileResponse;
 import com.example.holiday.user.domain.User;
 import com.example.holiday.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

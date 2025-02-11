@@ -36,7 +36,7 @@ public class UserController {
         return ResponseEntity.ok().body(MyPageResponse.from(userDto));
     }
 
-    @PutMapping("/user/detail")
+    @PutMapping("/user/edit")
     public ResponseEntity<UserResponse> updateUser(HttpSession session, @RequestBody UserRequest userRequest) {
         Long userId = checkSession(session);
         if (userId == null) return null;

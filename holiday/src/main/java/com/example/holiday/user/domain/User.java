@@ -1,5 +1,6 @@
 package com.example.holiday.user.domain;
 
+import com.example.holiday.common.BaseEntity;
 import com.example.holiday.user.controller.request.UserRequest;
 import com.example.holiday.user.dto.UserDto;
 import jakarta.persistence.Entity;
@@ -14,7 +15,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,7 +3,6 @@ package com.example.holiday.chatroom;
 import com.example.holiday.chat.dto.ChatRequest;
 import com.example.holiday.chat.dto.ChatResponse;
 import com.example.holiday.chatroom.dto.ChatRoomResponse;
-import com.example.holiday.user.controller.response.UserProfileResponse;
 import com.example.holiday.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
