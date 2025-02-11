@@ -36,7 +36,7 @@ public class UserService {
 
 
     public List<UserDto> findAllHausums(Long id) {
-        List<UserDto> userDtoList = userRepository.findAllByHansumAndState(1L,1L).stream().map(UserDto::from).toList();
+        List<UserDto> userDtoList = userRepository.findAllByHansumAndShowing(1L,1L).stream().map(UserDto::from).toList();
         if(id==0) return userDtoList;
         List<UserDto> userDtoList2 = new ArrayList<>();
         for (UserDto userDto : userDtoList) {

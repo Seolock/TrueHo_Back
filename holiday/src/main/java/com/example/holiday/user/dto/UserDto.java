@@ -3,17 +3,15 @@ package com.example.holiday.user.dto;
 import com.example.holiday.user.controller.request.UserRequest;
 import com.example.holiday.user.domain.Detail;
 import com.example.holiday.user.domain.User;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-
-
 public class UserDto {
 
     private Long id;
@@ -39,6 +37,9 @@ public class UserDto {
                 .major(user.getMajor())
                 .history(user.getHistory())
                 .imgUrl(user.getImgUrl())
+                .generation(user.getGeneration())
+                .admission(user.getAdmission())
+                .graduation(user.getGraduation())
                 .build();
     }
 

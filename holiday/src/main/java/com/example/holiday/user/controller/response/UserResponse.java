@@ -14,29 +14,27 @@ import java.util.List;
 @Setter
 @Builder
 public class UserResponse {
-    private String hansum;
+    private Long hansum;
     private String name;
     private String admission;
     private String graduation;
-    private String work;
-    private String major;
-    private List<Detail> history;
     private String generation;
+    private String major;
+    private String work;
+    private List<Detail> history;
     private String imgUrl;
 
     public static UserResponse from(UserDto userDto) {
         return UserResponse.builder()
+                .hansum(userDto.getHansum())
                 .name(userDto.getName())
-                .studentId(userDto.getStudentId())
                 .work(userDto.getWork())
-                .company(userDto.getCompany())
-                .oneLine(userDto.getOneLine())
-                .detail(userDto.getDetail())
-                .academy(userDto.getAcademy())
-                .licence(userDto.getLicence())
                 .major(userDto.getMajor())
+                .history(userDto.getHistory())
                 .imgUrl(userDto.getImgUrl())
+                .generation(userDto.getGeneration())
+                .admission(userDto.getAdmission())
+                .graduation(userDto.getGraduation())
                 .build();
-
     }
 }

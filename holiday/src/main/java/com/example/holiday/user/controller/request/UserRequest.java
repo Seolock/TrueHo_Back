@@ -18,10 +18,9 @@ public class UserRequest {
     private String name;
     private String admission;
     private String graduation;
-    private String work;
     private String major;
+    private String work;
     private List<Detail> history;
-    //private MultipartFile image;
 
 }
 
