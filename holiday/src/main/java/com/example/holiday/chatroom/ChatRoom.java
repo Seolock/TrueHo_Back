@@ -23,7 +23,7 @@ public class ChatRoom extends BaseEntity {
     private Long userId1;
     private Long userId2;
 
-    @OneToMany(mappedBy="chatRoom", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="chatRoom", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Chat> chats=new ArrayList<>();
 
 
@@ -42,7 +42,7 @@ public class ChatRoom extends BaseEntity {
         if(!userId1.equals(id) && !userId2.equals(id)) return;
         for(Chat chat : chats){
             if(!chat.getSenderId().equals(id)){
-                chat.setRead(1L);
+                chat.setReadState(true);
             }
         }
     }

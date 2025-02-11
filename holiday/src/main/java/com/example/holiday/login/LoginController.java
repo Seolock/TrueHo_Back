@@ -69,6 +69,10 @@ public class LoginController {
     @PostMapping("/user/logout")
     public ResponseEntity<LoginResponse> googleLogout(HttpSession session) {
 
+        if(session.getAttribute("userId")==null) {
+            return ResponseEntity.ok().body(new LoginResponse("No login info"));
+        }
+
         session.removeAttribute("userId");
         session.removeAttribute("email");
         session.removeAttribute("name");
