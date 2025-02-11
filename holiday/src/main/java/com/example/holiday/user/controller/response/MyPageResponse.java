@@ -10,13 +10,13 @@ import lombok.Setter;
 @Builder
 public class MyPageResponse {
     private String name;
-    private Long state;
+    private Long showing;
     private String imgUrl;
 
     public static MyPageResponse from(UserDto userDto){
         return MyPageResponse.builder()
                 .name(userDto.getName())
-                .state(userDto.getState())
+                .showing(userDto.getShowing())
                 .imgUrl(userDto.getImgUrl())
                 .build();
     }

@@ -1,10 +1,13 @@
 package com.example.holiday.user.controller.response;
 
 
+import com.example.holiday.user.domain.Detail;
 import com.example.holiday.user.dto.UserDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,7 +18,7 @@ public class HansumResponse {
     private String name;
     private String major;
     private String work;
-    private String detail;
+    private List<Detail> history;
     private String imgUrl;
 
 
@@ -24,10 +27,9 @@ public class HansumResponse {
                 .id(userDto.getId())
                 .name(userDto.getName())
                 .work(userDto.getWork())
-                .detail(userDto.getDetail())
+                .history(userDto.getHistory())
                 .major(userDto.getMajor())
                 .imgUrl(userDto.getImgUrl())
                 .build();
-
     }
 }
