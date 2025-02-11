@@ -20,8 +20,7 @@ public class UserRequest {
     private String academy;
     private String licence;
     private String major;
-    private MultipartFile image;
+    //private MultipartFile image;
 
 }
-
 

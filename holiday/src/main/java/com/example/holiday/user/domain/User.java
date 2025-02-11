@@ -25,7 +25,7 @@ public class User {
     private String googleUserId;
 
     private Long hansum;
-    private Long showing;
+    private Long state;
     private String name;
     private String studentId;
     private String major;
@@ -46,7 +46,7 @@ public class User {
 
 
     public void update(UserRequest userRequest) {
-        this.showing = 1L;
+        this.state = 1L;
         this.hansum = userRequest.getHansum();
         this.name = userRequest.getName();
         this.studentId = userRequest.getStudentId();
