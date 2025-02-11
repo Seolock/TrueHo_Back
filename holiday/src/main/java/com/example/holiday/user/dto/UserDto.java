@@ -15,7 +15,7 @@ public class UserDto {
 
     private Long id;
     private Long hansum;
-    private Long showing;
+    private Long state;
     private String name;
     private String studentId;
     private String major;
@@ -32,7 +32,7 @@ public class UserDto {
         return UserDto.builder()
                 .id(user.getId())
                 .hansum(user.getHansum())
-                .showing(user.getShowing())
+                .state(user.getState())
                 .name(user.getName())
                 .studentId(user.getStudentId())
                 .work(user.getWork())

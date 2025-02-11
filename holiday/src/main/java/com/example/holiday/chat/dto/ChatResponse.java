@@ -1,9 +1,12 @@
 package com.example.holiday.chat.dto;
 
 import com.example.holiday.chat.Chat;
-import lombok.Builder;
+import lombok.*;
 
-
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class ChatResponse {
 

@@ -3,6 +3,7 @@ package com.example.holiday.chatroom;
 import com.example.holiday.chat.dto.ChatRequest;
 import com.example.holiday.chat.dto.ChatResponse;
 import com.example.holiday.chatroom.dto.ChatRoomResponse;
+import com.example.holiday.login.LoginResponse;
 import com.example.holiday.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -28,44 +29,33 @@ public class ChatRoomController {
 
 
     @PostMapping("/hansum/chat/{id}")
-    public ResponseEntity<ChatResponse> createChatRoom(@PathVariable Long id, @RequestBody ChatRequest chatRequest, HttpSession session) {
+    public ResponseEntity<Object> createChatRoom(@PathVariable Long id, @RequestBody ChatRequest chatRequest, HttpSession session) {
         Long userId = checkSession(session);
-        if(userId == null) return ;
-
+        if(userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
         return ResponseEntity.ok().body(chatRoomService.createChatRoom(id,chatRequest,userId));
     }
 
 
     @GetMapping("/chat/list")
-    public ResponseEntity<List<ChatRoomResponse>> getChatRoomList(HttpSession session) {
+    public ResponseEntity<Object> getChatRoomList(HttpSession session) {
         Long userId = checkSession(session);
-        if(userId == null) return ;
-
+        if(userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
         return ResponseEntity.ok().body(chatRoomService.getChatRoomList(userId));
     }
 
 
     @GetMapping("/chat/content/{id}")
-    public ResponseEntity<List<ChatResponse>> getChatRoomContent(@PathVariable Long id, HttpSession session) {
+    public ResponseEntity<Object> getChatRoomContent(@PathVariable Long id, HttpSession session) {
         Long userId = checkSession(session);
-        if(userId == null) return ;
-
+        if(userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
         return ResponseEntity.ok().body(chatRoomService.getChatRoomContent(id, userId));
     }
 
 
-    @GetMapping("/chat/profile/{id}")
-    public ResponseEntity<UserProfileResponse> getChatRoomProfile(@PathVariable Long id, HttpSession session){
-        Long userId = checkSession(session);
-        if(userId == null) return ;
-        return ResponseEntity.ok().body(chatRoomService.getChatRoomProfile(id, userId));
-    }
-
-
     @PostMapping("/chat/message/{id}")
-    public ResponseEntity<ChatResponse> sendChatMessage(@PathVariable Long id, @RequestBody ChatRequest chatRequest, HttpSession session) {
+    public ResponseEntity<Object> sendChatMessage(@PathVariable Long id, @RequestBody ChatRequest chatRequest, HttpSession session) {
         Long userId = checkSession(session);
-        if(userId == null) return ;
+        if(userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
         return ResponseEntity.ok().body(chatRoomService.sendChatMessage(id,chatRequest,userId));
     }
 

@@ -19,7 +19,7 @@ public class Chat extends BaseEntity {
 
     private Long senderId;
     private String content;
-    private Long read;
+    private Boolean readState;
 
     @ManyToOne
     @JoinColumn(nullable=false)
@@ -31,7 +31,7 @@ public class Chat extends BaseEntity {
                 .senderId(id)
                 .content(content)
                 .chatRoom(chatRoom)
-                .read(0L)
+                .readState(false)
                 .build();
     }
 }

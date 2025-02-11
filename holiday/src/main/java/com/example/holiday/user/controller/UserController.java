@@ -28,33 +28,52 @@ public class UserController {
         return userService.checkExist(userId, email, name);
     }
 
-    @GetMapping("/user/detail")
-    public ResponseEntity<MyPageResponse> getUserById(HttpSession session) {
+    @PutMapping("/main/register")
+    public ResponseEntity<Object> userRegister(@RequestBody UserRequest userRequest, HttpSession session) {
         Long userId = checkSession(session);
-        if (userId == null) return null;
-        UserDto userDto = userService.findUserById(userId);
-        return ResponseEntity.ok().body(MyPageResponse.from(userDto));
-    }
-
-    @PutMapping("/user/edit")
-    public ResponseEntity<UserResponse> updateUser(HttpSession session, @RequestBody UserRequest userRequest) {
-        Long userId = checkSession(session);
-        if (userId == null) return null;
+        if (userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
         UserDto userDto = userService.updateUser(userId, userRequest);
         return ResponseEntity.ok().body(UserResponse.from(userDto));
     }
 
+    @GetMapping("/user/detail")
+    public ResponseEntity<Object> getUserById(HttpSession session) {
+        Long userId = checkSession(session);
+        if (userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
+        UserDto userDto = userService.findUserById(userId);
+        return ResponseEntity.ok().body(MyPageResponse.from(userDto));
+    }
+
+
+    @GetMapping("/user/edit")
+    public ResponseEntity<Object> getUser(HttpSession session) {
+        Long userId = checkSession(session);
+        if (userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
+        UserDto userDto = userService.findUserById(userId);
+        return ResponseEntity.ok().body(UserResponse.from(userDto));
+    }
+
+
+    @PutMapping("/user/edit")
+    public ResponseEntity<Object> updateUser(HttpSession session, @RequestBody UserRequest userRequest) {
+        Long userId = checkSession(session);
+        if (userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
+        UserDto userDto = userService.updateUser(userId, userRequest);
+        return ResponseEntity.ok().body(UserResponse.from(userDto));
+    }
+
+
     @GetMapping("/hansum/list/{id}")
-    public ResponseEntity<List<HansumResponse>> getAllHansumList(HttpSession session, @PathVariable Long id) {
-        if(checkSession(session)==null) return null;
-        List<HansumResponse> hansumResponse = userService.findAllHausums().stream().map(HansumResponse::from).collect(Collectors.toList());
+    public ResponseEntity<Object> getAllHansumList(HttpSession session, @PathVariable Long id) {
+        if(checkSession(session)==null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
+        List<HansumResponse> hansumResponse = userService.findAllHausums(id).stream().map(HansumResponse::from).toList();
         return ResponseEntity.ok().body(hansumResponse);
     }
 
 
     @GetMapping("hansum/profile/{id}")
-    public ResponseEntity<UserResponse> getHansumProfile(HttpSession session, @PathVariable Long id) {
-        if(checkSession(session)==null) return null;
+    public ResponseEntity<Object> getHansumProfile(HttpSession session, @PathVariable Long id) {
+        if(checkSession(session)==null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
         UserDto userDto = userService.findUserById(id);
         return ResponseEntity.ok().body(UserResponse.from(userDto));
     }
