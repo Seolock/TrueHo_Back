@@ -60,4 +60,8 @@ public class User extends BaseEntity {
     }
 
 
+    public void setImageUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
 }

@@ -2,9 +2,7 @@ package com.example.holiday.user.controller.response;
 
 import com.example.holiday.user.domain.Detail;
 import com.example.holiday.user.dto.UserDto;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +10,8 @@ import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class UserResponse {
     private Long hansum;

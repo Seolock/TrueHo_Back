@@ -61,4 +61,10 @@ public class UserService {
         }
         return user.getId();
     }
+
+    @Transactional
+    public void saveImage(String uploadUrl, Long userId) {
+        User user=userRepository.findById(userId).orElse(null);
+        if(user!=null) user.setImageUrl(uploadUrl);
+    }
 }

@@ -1,12 +1,12 @@
 package com.example.holiday.user.controller.response;
 
 import com.example.holiday.user.dto.UserDto;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class MyPageResponse {
     private String name;
