@@ -24,7 +24,7 @@ public class ChatRoomResponse {
                 .name(user.getName())
                 .imgUrl(user.getImgUrl())
                 .lastChat(chatRoom.getLastChat().getContent())
-                .unreadMessage(chatRoom.getLastChat().getReadState()?0L:1L)
+                .unreadMessage(chatRoom.getLastChat().getSenderId().equals(user.getId())&&!chatRoom.getLastChat().getReadState()?1L:0L)
                 .build();
     }
 }

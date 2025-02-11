@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByGoogleUserId(String userId);
-    List<User> findAllByHansumAndState(Long hansum, Long state);
+    List<User> findAllByHansumAndShowing(Long hansum, Long showing);
 }

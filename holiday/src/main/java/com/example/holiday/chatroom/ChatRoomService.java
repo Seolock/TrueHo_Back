@@ -7,6 +7,7 @@ import com.example.holiday.chat.dto.ChatResponse;
 import com.example.holiday.chatroom.dto.ChatRoomResponse;
 import com.example.holiday.user.domain.User;
 import com.example.holiday.user.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,7 @@ public class ChatRoomService {
 
     public ChatResponse createChatRoom(Long id, ChatRequest chatRequest, Long userId) {
         ChatRoom chatRoom = ChatRoom.chatRoom(id,userId);
-
         Chat chat=Chat.chat(userId, chatRequest.getMessage(), chatRoomRepository.save(chatRoom));
-
         return ChatResponse.chatEtoR(chatRepository.save(chat));
     }
 
@@ -50,7 +49,7 @@ public class ChatRoomService {
         return user;
     }
 
-
+    @Transactional
     public List<ChatResponse> getChatRoomContent(Long id, Long userId) {
         ChatRoom chatRoom=chatRoomRepository.findById(id).orElse(null);
         if(chatRoom==null) return null;
