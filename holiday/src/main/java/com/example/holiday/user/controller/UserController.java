@@ -1,32 +1,47 @@
 package com.example.holiday.user.controller;
 
+import com.example.holiday.common.S3service;
 import com.example.holiday.login.LoginResponse;
 import com.example.holiday.user.controller.request.UserRequest;
 import com.example.holiday.user.controller.response.HansumResponse;
+import com.example.holiday.user.controller.response.ImageResponse;
 import com.example.holiday.user.controller.response.MyPageResponse;
 import com.example.holiday.user.controller.response.UserResponse;
-import com.example.holiday.user.domain.User;
 import com.example.holiday.user.dto.UserDto;
 import com.example.holiday.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
+    private final S3service s3service;
 
     Long checkSession(HttpSession session) {
         String userId = (String) session.getAttribute("userId");
         String email = (String) session.getAttribute("email");
         String name = (String) session.getAttribute("name");
         return userService.checkExist(userId, email, name);
+    }
+
+    @PostMapping("/main/image")
+    public ResponseEntity<Object> uploadImage(@RequestParam("image") MultipartFile file, HttpSession session) {
+        Long userId = checkSession(session);
+        if (userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
+        try {
+            String uploadUrl = s3service.uploadFiles(file, "holiday/");
+            userService.saveImage(uploadUrl,userId);
+            return ResponseEntity.ok(new ImageResponse(uploadUrl));
+        } catch (Exception e) {
+            return ResponseEntity.ok(new LoginResponse("Failed to upload file"));
+        }
     }
 
     @PutMapping("/main/register")
