@@ -1,6 +1,5 @@
 package com.example.holiday.user.controller;
 
-import com.example.holiday.common.S3service;
 import com.example.holiday.login.LoginResponse;
 import com.example.holiday.user.controller.request.UserRequest;
 import com.example.holiday.user.controller.response.HansumResponse;
@@ -22,8 +21,6 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
-    private final S3service s3service;
-
 
     Long checkSession(HttpSession session) {
         String userId = (String) session.getAttribute("userId");
