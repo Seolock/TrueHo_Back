@@ -2,8 +2,12 @@ package com.example.holiday.chatroom.dto;
 
 import com.example.holiday.chatroom.ChatRoom;
 import com.example.holiday.user.domain.User;
-import lombok.Builder;
+import lombok.*;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class ChatRoomResponse {
 
@@ -20,7 +24,7 @@ public class ChatRoomResponse {
                 .name(user.getName())
                 .imgUrl(user.getImgUrl())
                 .lastChat(chatRoom.getLastChat().getContent())
-                .flag(chatRoom.getLastChat().getRead().equals(0L)?1L:0L)
+                .flag(chatRoom.getLastChat().getReadState()?0L:1L)
                 .build();
     }
 }

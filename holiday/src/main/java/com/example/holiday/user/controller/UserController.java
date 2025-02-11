@@ -70,7 +70,7 @@ public class UserController {
     @GetMapping("/hansum/list/{id}")
     public ResponseEntity<Object> getAllHansumList(HttpSession session, @PathVariable Long id) {
         if(checkSession(session)==null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
-        List<HansumResponse> hansumResponse = userService.findAllHausums(id).stream().map(HansumResponse::from).collect(Collectors.toList());
+        List<HansumResponse> hansumResponse = userService.findAllHausums(id).stream().map(HansumResponse::from).toList();
         return ResponseEntity.ok().body(hansumResponse);
     }
 

@@ -27,10 +27,10 @@ public class ChatRoomService {
 
     public ChatResponse createChatRoom(Long id, ChatRequest chatRequest, Long userId) {
         ChatRoom chatRoom = ChatRoom.chatRoom(id,userId);
-        chatRoomRepository.save(chatRoom);
-        Chat chat=Chat.chat(userId, chatRequest.getMessage(), chatRoom);
-        chatRepository.save(chat);
-        return ChatResponse.chatEtoR(chat);
+
+        Chat chat=Chat.chat(userId, chatRequest.getMessage(), chatRoomRepository.save(chatRoom));
+
+        return ChatResponse.chatEtoR(chatRepository.save(chat));
     }
 
 
@@ -62,12 +62,4 @@ public class ChatRoomService {
         return ChatResponse.chatEtoR(chat);
     }
 
-
-    public UserProfileResponse getChatRoomProfile(Long id, Long userId) {
-        ChatRoom chatRoom=chatRoomRepository.findById(id).orElse(null);
-        if(chatRoom==null) return null;
-        User user=userRepository.findById(chatRoom.getUserId1().equals(userId)?chatRoom.getUserId2():chatRoom.getUserId1()).orElse(null);
-        if(user==null) return null;
-        return UserProfileResponse.profileEtoR(user);
-    }
 }

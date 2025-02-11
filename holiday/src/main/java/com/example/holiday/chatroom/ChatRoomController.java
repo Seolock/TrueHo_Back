@@ -53,14 +53,6 @@ public class ChatRoomController {
     }
 
 
-    @GetMapping("/chat/profile/{id}")
-    public ResponseEntity<Object> getChatRoomProfile(@PathVariable Long id, HttpSession session){
-        Long userId = checkSession(session);
-        if(userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
-        return ResponseEntity.ok().body(chatRoomService.getChatRoomProfile(id, userId));
-    }
-
-
     @PostMapping("/chat/message/{id}")
     public ResponseEntity<Object> sendChatMessage(@PathVariable Long id, @RequestBody ChatRequest chatRequest, HttpSession session) {
         Long userId = checkSession(session);
