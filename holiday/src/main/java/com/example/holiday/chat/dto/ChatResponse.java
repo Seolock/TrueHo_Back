@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 public class ChatResponse {
 
-    private Long flag;
+    private Long sending;
     private String message;
     private String time;
 
@@ -24,7 +24,7 @@ public class ChatResponse {
 
     public static ChatResponse chatEtoR(Chat chat, Long userId) {
         return ChatResponse.builder()
-                .flag(chat.getSenderId().equals(userId)?1L:0L)
+                .sending(chat.getSenderId().equals(userId)?1L:0L)
                 .message(chat.getContent())
                 .time(chat.getCreated().toString())
                 .build();
