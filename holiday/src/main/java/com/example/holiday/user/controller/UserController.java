@@ -3,10 +3,7 @@ package com.example.holiday.user.controller;
 import com.example.holiday.common.S3service;
 import com.example.holiday.login.LoginResponse;
 import com.example.holiday.user.controller.request.UserRequest;
-import com.example.holiday.user.controller.response.HansumResponse;
-import com.example.holiday.user.controller.response.ImageResponse;
-import com.example.holiday.user.controller.response.MyPageResponse;
-import com.example.holiday.user.controller.response.UserResponse;
+import com.example.holiday.user.controller.response.*;
 import com.example.holiday.user.dto.UserDto;
 import com.example.holiday.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -106,6 +103,20 @@ public class UserController {
         UserDto userDto = userService.findUserById(id);
         return ResponseEntity.ok().body(UserResponse.from(userDto));
     }
+
+    @PostMapping("/user/profile/show")
+    public ResponseEntity<Object> showingProfile(HttpSession session) {
+        Long userId = checkSession(session);
+        if (userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
+
+        try {
+            Long showing = userService.showingProfile(userId);
+            return ResponseEntity.ok(new UserShowingResponse(showing));
+        } catch (Exception e) {
+            return ResponseEntity.ok(new LoginResponse("Failed to toggle profile visibility"));
+        }
+    }
+
 
 
 }
