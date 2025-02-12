@@ -28,7 +28,7 @@ public class LoginController {
 
 
     @PostMapping("/main/login")
-    public ResponseEntity<LoginResponse> googleLogin(@RequestParam String credential, HttpSession session) {
+    public ResponseEntity<LoginResponse> googleLogin(@RequestParam("id_token") String credential, HttpSession session) {
         HttpTransport transport = new NetHttpTransport();
         JsonFactory jsonFactory = new GsonFactory();
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
