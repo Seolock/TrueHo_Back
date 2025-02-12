@@ -1,6 +1,7 @@
 package com.example.holiday.user.service;
 
 import com.example.holiday.user.controller.request.UserRequest;
+import com.example.holiday.user.controller.response.UserShowingResponse;
 import com.example.holiday.user.domain.User;
 import com.example.holiday.user.dto.UserDto;
 import com.example.holiday.user.repository.UserRepository;
@@ -26,12 +27,16 @@ public class UserService {
     }
 
 
+
+
     @Transactional
     public UserDto updateUser(Long id, UserRequest userRequest) {
         User user = userRepository.findById(id).orElse(null);
         user.update(userRequest);
         return UserDto.from(user);
     }
+
+
 
 
 
@@ -67,4 +72,18 @@ public class UserService {
         User user=userRepository.findById(userId).orElse(null);
         if(user!=null) user.setImageUrl(uploadUrl);
     }
+
+    @Transactional
+    public Long showingProfile(Long userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            Long newShowing = (long) (user.getShowing() == 1 ? 0 : 1);
+            user.setShowing(newShowing);
+            userRepository.save(user);
+            return newShowing;
+        }
+        throw new RuntimeException("User not found");
+    }
+
+
 }
