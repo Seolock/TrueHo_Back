@@ -30,7 +30,9 @@ public class LoginController {
     @PostMapping("/main/login")
     public ResponseEntity<LoginResponse> googleLogin(@RequestParam("id_token") String credential, HttpSession session) {
         if(session.getAttribute("userId") != null) {
-            return ResponseEntity.ok(new LoginResponse("Already logged in"));
+            session.removeAttribute("userId");
+            session.removeAttribute("email");
+            session.removeAttribute("name");
         }
 
 
