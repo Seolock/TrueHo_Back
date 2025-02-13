@@ -1,8 +1,10 @@
 package com.example.holiday.chat.dto;
 
 import com.example.holiday.chat.Chat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
 @AllArgsConstructor

@@ -15,7 +15,6 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class User extends BaseEntity {
 
     @Id
@@ -48,7 +47,6 @@ public class User extends BaseEntity {
 
 
     public void update(UserRequest userRequest) {
-
         this.showing = 1L;
         this.hansum = userRequest.getHansum();
         this.name = userRequest.getName();
