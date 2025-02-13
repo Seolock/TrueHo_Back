@@ -47,6 +47,7 @@ public class User extends BaseEntity {
 
 
     public void update(UserRequest userRequest) {
+        String[] generation={"근본","느혜미야의","상상하는","회복의","사랑의","은혜의","화평의","동행의","기쁨의","꿈꾸는","소망의","약속의","빛나는","함께하는","온유의","축복의","부르심의","세워가는"};
         this.showing = 1L;
         this.hansum = userRequest.getHansum();
         this.name = userRequest.getName();
@@ -55,6 +56,7 @@ public class User extends BaseEntity {
         this.major = userRequest.getMajor();
         this.work = userRequest.getWork();
         this.history = userRequest.getHistory();
+        this.generation=generation[Integer.parseInt(admission)-2008]+"세대";
     }
 
 
