@@ -5,6 +5,7 @@ import com.example.holiday.chat.ChatRepository;
 import com.example.holiday.chat.dto.ChatRequest;
 import com.example.holiday.chat.dto.ChatResponse;
 import com.example.holiday.chatroom.dto.ChatRoomResponse;
+import com.example.holiday.user.controller.response.UserProfileResponse;
 import com.example.holiday.user.domain.User;
 import com.example.holiday.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -64,6 +65,15 @@ public class ChatRoomService {
         if(chatRoom==null) return null;
         Chat chat=chatRepository.save(Chat.chat(userId, chatRequest.getMessage(), chatRoom));
         return ChatResponse.chatEtoR(chat);
+    }
+
+
+    public UserProfileResponse getChatRoomProfile(Long id, Long userId) {
+        ChatRoom chatRoom=chatRoomRepository.findById(id).orElse(null);
+        if(chatRoom==null) return null;
+        User user=userRepository.findById(chatRoom.getUserId1().equals(userId)?chatRoom.getUserId2():chatRoom.getUserId1()).orElse(null);
+        if(user==null) return null;
+        return UserProfileResponse.profileEtoR(user);
     }
 
 }
