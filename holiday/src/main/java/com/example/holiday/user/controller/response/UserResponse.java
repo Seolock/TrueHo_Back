@@ -2,12 +2,14 @@ package com.example.holiday.user.controller.response;
 
 import com.example.holiday.user.domain.Detail;
 import com.example.holiday.user.dto.UserDto;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.util.HashMap;
 import java.util.List;
 
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
 @AllArgsConstructor
@@ -23,6 +25,7 @@ public class UserResponse {
     private String work;
     private List<Detail> history;
     private String imgUrl;
+    private Long showing;
 
     public static UserResponse from(UserDto userDto) {
         return UserResponse.builder()
@@ -35,6 +38,7 @@ public class UserResponse {
                 .generation(userDto.getGeneration())
                 .admission(userDto.getAdmission())
                 .graduation(userDto.getGraduation())
+                .showing(userDto.getShowing())
                 .build();
     }
 }

@@ -23,6 +23,7 @@ public class UserRequest {
     private String major;
     private String work;
     private List<Detail> history;
+    private Long showing;
 
 }
 
