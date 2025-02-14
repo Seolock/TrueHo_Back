@@ -19,7 +19,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-    private String[] list={"국제어문","경영경제","법학부","커뮤니케이션","상담복지","생명과학","공간환경시스템","전산전자","콘텐츠융합디자인","기계제어","ICT창업학부"};
+    private String[] list={"국제어문학부","경영경제학부","법학부","커뮤니케이션학부","상담심리사회복지학부","생명과학부","공간환경시스템공학부","전산전자공학부","콘텐츠융합디자인학부","기계제어공학부","ICT창업학부"};
 
     public UserDto findUserById(Long id) {
         UserDto userDto = UserDto.from(userRepository.findById(id).orElse(null));
