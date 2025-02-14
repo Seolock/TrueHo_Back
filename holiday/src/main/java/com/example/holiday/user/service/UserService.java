@@ -45,7 +45,7 @@ public class UserService {
         if(id==0) return userDtoList;
         List<UserDto> userDtoList2 = new ArrayList<>();
         for (UserDto userDto : userDtoList) {
-            if(userDto.getMajor().contains(list[id.intValue()-1])) userDtoList2.add(userDto);
+            if(userDto.getMajor().equals(list[id.intValue()-1])) userDtoList2.add(userDto);
         }
         return userDtoList2;
     }
