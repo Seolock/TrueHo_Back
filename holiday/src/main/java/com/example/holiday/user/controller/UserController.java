@@ -54,7 +54,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/main/register")
+    @PostMapping("/main/register")
     public ResponseEntity<Object> userRegister(@RequestBody UserRequest userRequest, HttpSession session) {
         Long userId = checkSession(session);
         if (userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
