@@ -11,8 +11,10 @@ public class CorsMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry corsRegistry) {
 
         corsRegistry.addMapping("/**")
-                .allowedOrigins("https://hansum.netlify.app")
+                //.allowedOrigins("https://hansum.netlify.app")
+                .allowedOrigins("http://localhost:3000")
                 .allowedMethods("*")
+                .allowedHeaders("Authorization", "Content-Type")
                 .allowCredentials(true);
     }
 }
