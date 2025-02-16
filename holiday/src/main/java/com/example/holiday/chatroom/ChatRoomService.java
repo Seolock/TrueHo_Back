@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -39,7 +40,8 @@ public class ChatRoomService {
         List<ChatRoom> list=new ArrayList<>();
         if(list1!=null) list.addAll(list1);
         if(list2!=null) list.addAll(list2);
-        list.sort(Comparator.comparing(ChatRoom::getModified)); //확인 필요
+        Collections.sort(list);
+        //list.sort(Comparator.comparing(chatRoom->chatRoom.getLastChat().getCreated()));
         return list.stream().map(chatRoom -> ChatRoomResponse.chatRoomEtoR(chatRoom,getOtherUser(chatRoom,userId))).toList();
     }
 

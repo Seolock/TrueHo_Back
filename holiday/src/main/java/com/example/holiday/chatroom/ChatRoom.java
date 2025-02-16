@@ -5,6 +5,7 @@ import com.example.holiday.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ChatRoom extends BaseEntity {
+public class ChatRoom extends BaseEntity implements Comparable<ChatRoom>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,5 +46,16 @@ public class ChatRoom extends BaseEntity {
                 chat.setReadState(true);
             }
         }
+    }
+
+    @Override
+    public int compareTo(ChatRoom chatRoom){
+        if(this.getLastChat().getCreated().isAfter(chatRoom.getLastChat().getCreated())){
+            return -1;
+        }
+        else if(this.getLastChat().getCreated().isBefore(chatRoom.getLastChat().getCreated())){
+            return 1;
+        }
+        else return 0;
     }
 }
