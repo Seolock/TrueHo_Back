@@ -80,7 +80,7 @@ public class UserController {
     }
 
 
-    @PutMapping("/user/edit")
+    @PostMapping("/user/edit")
     public ResponseEntity<Object> updateUser(HttpSession session, @RequestBody UserRequest userRequest) {
         Long userId = checkSession(session);
         if (userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
