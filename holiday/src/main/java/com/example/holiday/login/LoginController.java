@@ -46,8 +46,7 @@ public class LoginController {
             if (idToken != null) {
                 GoogleIdToken.Payload payload = idToken.getPayload();
 
-                String hd=payload.getHostedDomain();
-
+//                String hd=payload.getHostedDomain();
 //                if(!"handong.ac.kr".equals(hd)){
 //                    return ResponseEntity.badRequest().body(new LoginResponse("Invalid ID token (not hgu)"));
 //                }
