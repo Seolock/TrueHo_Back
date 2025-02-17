@@ -56,7 +56,9 @@ public class User extends BaseEntity {
         this.graduation = userRequest.getGraduation();
         this.major = userRequest.getMajor();
         this.work = userRequest.getWork();
-        this.history = userRequest.getHistory();
+        List<Detail> list=userRequest.getHistory();
+        list.remove(0);
+        this.history = list;
         this.generation=generation[Integer.parseInt(admission)-2008]+"세대";
     }
 

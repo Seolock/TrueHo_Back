@@ -18,15 +18,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
+
     private final UserRepository userRepository;
+
     private String[] list={"국제어문학부","경영경제학부","법학부","커뮤니케이션학부","상담심리사회복지학부","생명과학부","공간환경시스템공학부","전산전자공학부","콘텐츠융합디자인학부","기계제어공학부","ICT창업학부"};
+
 
     public UserDto findUserById(Long id) {
         UserDto userDto = UserDto.from(userRepository.findById(id).orElse(null));
         return userDto;
     }
-
-
 
 
     @Transactional
@@ -35,9 +36,6 @@ public class UserService {
         user.update(userRequest);
         return UserDto.from(user);
     }
-
-
-
 
 
     public List<UserDto> findAllHausums(Long id) {
@@ -52,10 +50,13 @@ public class UserService {
 
 
     public Long checkExist(String userId, String email, String name) {
-        User user=userRepository.findByGoogleUserId(userId).orElse(null);
-        if(user==null) return null;
-        return user.getId();
+        User user1=userRepository.findByGoogleUserId(userId).orElse(null);
+        User user2=userRepository.findByGoogleEmail(email).orElse(null);
+        User user3=userRepository.findByGoogleName(name).orElse(null);
+        if(user1!=null && user1.equals(user2) && user1.equals(user3)) return user1.getId();
+        return null;
     }
+
 
     public Long addUser(String userId, String email, String name) {
         User user=userRepository.findByGoogleUserId(userId).orElse(null);
@@ -67,11 +68,13 @@ public class UserService {
         return user.getId();
     }
 
+
     @Transactional
     public void saveImage(String uploadUrl, Long userId) {
         User user=userRepository.findById(userId).orElse(null);
         if(user!=null) user.setImageUrl(uploadUrl);
     }
+
 
     @Transactional
     public Long showingProfile(Long userId) {
