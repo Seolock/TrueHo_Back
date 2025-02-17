@@ -57,7 +57,7 @@ public class User extends BaseEntity {
         this.major = userRequest.getMajor();
         this.work = userRequest.getWork();
         List<Detail> list=userRequest.getHistory();
-        list.remove(0);
+        if(list.get(0).getName().equals("0")) list.remove(0);
         this.history = list;
         this.generation=generation[Integer.parseInt(admission)-2008]+"세대";
     }
