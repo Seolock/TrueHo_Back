@@ -50,16 +50,14 @@ public class UserService {
 
 
     public Long checkExist(String userId, String email, String name) {
-        User user1=userRepository.findByGoogleUserId(userId).orElse(null);
-        User user2=userRepository.findByGoogleEmail(email).orElse(null);
-        User user3=userRepository.findByGoogleName(name).orElse(null);
-        if(user1!=null && user1.equals(user2) && user1.equals(user3)) return user1.getId();
+        User user=userRepository.findByGoogleUserIdAndGoogleEmailAndGoogleName(userId,email,name).orElse(null);
+        if(user!=null) return user.getId();
         return null;
     }
 
 
     public Long addUser(String userId, String email, String name) {
-        User user=userRepository.findByGoogleUserId(userId).orElse(null);
+        User user=userRepository.findByGoogleUserIdAndGoogleEmailAndGoogleName(userId,email,name).orElse(null);
         if(user==null){
             User newUser=new User(userId,email,name);
             userRepository.save(newUser);

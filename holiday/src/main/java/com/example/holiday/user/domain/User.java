@@ -43,7 +43,7 @@ public class User extends BaseEntity {
         googleName = name;
         googleEmail = email;
         googleUserId = userId;
-        imgUrl="https://likelionpractice1.s3.ap-northeast-2.amazonaws.com/holiday/49b94706-e49d-4570-b84e-659c1fb9dbde_temp12141399987018549563basic.png";
+        imgUrl="https://likelionpractice1.s3.ap-northeast-2.amazonaws.com/holiday/703c72b0-ca97-466b-867c-27652ac93a01_temp11675822538280352132hansum.png";
     }
 
 
@@ -57,7 +57,7 @@ public class User extends BaseEntity {
         this.major = userRequest.getMajor();
         this.work = userRequest.getWork();
         List<Detail> list=userRequest.getHistory();
-        list.remove(0);
+        if(list.get(0).getName().equals("0")) list.remove(0);
         this.history = list;
         this.generation=generation[Integer.parseInt(admission)-2008]+"세대";
     }

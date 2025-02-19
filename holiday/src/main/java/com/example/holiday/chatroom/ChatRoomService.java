@@ -28,6 +28,11 @@ public class ChatRoomService {
 
 
     public ChatResponse createChatRoom(Long id, ChatRequest chatRequest, Long userId) {
+        if(chatRoomRepository.existsByUserId1AndUserId2(id,userId)||chatRoomRepository.existsByUserId1AndUserId2(userId,id)){
+            ChatRoom chatRoom=chatRoomRepository.findByUserId1AndUserId2(id,userId).orElse(null);
+            if(chatRoom==null) chatRoom=chatRoomRepository.findByUserId1AndUserId2(userId,id).orElse(null);
+            return sendChatMessage(chatRoom.getId(),chatRequest,userId);
+        }
         ChatRoom chatRoom = ChatRoom.chatRoom(id,userId);
         Chat chat=Chat.chat(userId, chatRequest.getMessage(), chatRoomRepository.save(chatRoom));
         return ChatResponse.chatEtoR(chatRepository.save(chat));
