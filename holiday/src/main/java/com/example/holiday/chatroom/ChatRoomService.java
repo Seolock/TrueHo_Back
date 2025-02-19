@@ -28,14 +28,17 @@ public class ChatRoomService {
 
 
     public ChatResponse createChatRoom(Long id, ChatRequest chatRequest, Long userId) {
-        if(chatRoomRepository.existsByUserId1AndUserId2(id,userId)||chatRoomRepository.existsByUserId1AndUserId2(userId,id)){
-            ChatRoom chatRoom=chatRoomRepository.findByUserId1AndUserId2(id,userId).orElse(null);
-            if(chatRoom==null) chatRoom=chatRoomRepository.findByUserId1AndUserId2(userId,id).orElse(null);
-            return sendChatMessage(chatRoom.getId(),chatRequest,userId);
+        ChatRoom chatRoom=chatRoomRepository.findByUserId1AndUserId2(id,userId).orElse(null);
+        if(chatRoom==null) chatRoom=chatRoomRepository.findByUserId1AndUserId2(userId,id).orElse(null);
+        if(chatRoom!=null){
+            sendChatMessage(chatRoom.getId(),chatRequest,userId);
+            return ChatResponse.chatEtoR(chatRoom.getId(),chatRoom.getLastChat());
         }
-        ChatRoom chatRoom = ChatRoom.chatRoom(id,userId);
+        chatRoom = ChatRoom.chatRoom(id,userId);
         Chat chat=Chat.chat(userId, chatRequest.getMessage(), chatRoomRepository.save(chatRoom));
-        return ChatResponse.chatEtoR(chatRepository.save(chat));
+        chatRepository.save(chat);
+        chatRoom=chatRoomRepository.findByUserId1AndUserId2(id,userId).orElse(null);
+        return ChatResponse.chatEtoR(chatRoom.getId(),chat);
     }
 
 
@@ -50,12 +53,14 @@ public class ChatRoomService {
         return list.stream().map(chatRoom -> ChatRoomResponse.chatRoomEtoR(chatRoom,getOtherUser(chatRoom,userId))).toList();
     }
 
+
     User getOtherUser(ChatRoom chatRoom, Long userId) {
         User user;
         if(chatRoom.getUserId1().equals(userId)) user=userRepository.findById(chatRoom.getUserId2()).orElse(null);
         else user=userRepository.findById(chatRoom.getUserId1()).orElse(null);
         return user;
     }
+
 
     @Transactional
     public List<ChatResponse> getChatRoomContent(Long id, Long userId) {

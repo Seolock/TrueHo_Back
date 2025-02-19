@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -39,12 +40,16 @@ public class UserService {
 
 
     public List<UserDto> findAllHausums(Long id) {
-        List<UserDto> userDtoList = userRepository.findAllByHansumAndShowing(1L,1L).stream().map(UserDto::from).toList();
-        if(id==0) return userDtoList;
+        List<UserDto> userDtoList = new ArrayList<>(userRepository.findAllByHansumAndShowing(1L, 1L).stream().map(UserDto::from).toList());
+        if(id==0) {
+            Collections.shuffle(userDtoList);
+            return userDtoList;
+        }
         List<UserDto> userDtoList2 = new ArrayList<>();
         for (UserDto userDto : userDtoList) {
             if(userDto.getMajor().equals(list[id.intValue()-1])) userDtoList2.add(userDto);
         }
+        Collections.shuffle(userDtoList2);
         return userDtoList2;
     }
 
