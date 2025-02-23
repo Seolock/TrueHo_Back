@@ -18,6 +18,10 @@ public class ChatResponse {
     private Long chatRoomId;
 
 
+    public ChatResponse(String message){
+        this.message = message;
+    }
+
     public static ChatResponse chatEtoR(Chat chat) {
         return ChatResponse.builder()
                 .message(chat.getContent())

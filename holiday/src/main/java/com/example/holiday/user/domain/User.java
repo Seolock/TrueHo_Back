@@ -36,6 +36,7 @@ public class User extends BaseEntity {
     private String imgUrl;
 
     @Convert(converter = StringListConverter.class)
+    @Column(length = 50000)
     private List<Detail> history;
 
 
@@ -57,7 +58,7 @@ public class User extends BaseEntity {
         this.major = userRequest.getMajor();
         this.work = userRequest.getWork();
         List<Detail> list=userRequest.getHistory();
-        if(list.get(0).getName().equals("0")) list.remove(0);
+        list.removeIf(detail -> detail.getName().isEmpty());
         this.history = list;
         this.generation=generation[Integer.parseInt(admission)-2008]+"세대";
     }
