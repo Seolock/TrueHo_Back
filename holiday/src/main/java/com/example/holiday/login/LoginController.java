@@ -46,10 +46,10 @@ public class LoginController {
             if (idToken != null) {
                 GoogleIdToken.Payload payload = idToken.getPayload();
 
-//                String hd=payload.getHostedDomain();
-//                if(!"handong.ac.kr".equals(hd)){
-//                    return ResponseEntity.badRequest().body(new LoginResponse("Invalid ID token (not hgu)"));
-//                }
+                String hd=payload.getHostedDomain();
+                if(!"handong.ac.kr".equals(hd)){
+                    return ResponseEntity.badRequest().body(new LoginResponse("Not HGU"));
+                }
 
                 String userId = payload.getSubject();
                 String email = payload.getEmail();

@@ -28,6 +28,7 @@ public class ChatRoomService {
 
 
     public ChatResponse createChatRoom(Long id, ChatRequest chatRequest, Long userId) {
+        if(id.equals(userId)) return new ChatResponse("error : self message");
         ChatRoom chatRoom=chatRoomRepository.findByUserId1AndUserId2(id,userId).orElse(null);
         if(chatRoom==null) chatRoom=chatRoomRepository.findByUserId1AndUserId2(userId,id).orElse(null);
         if(chatRoom!=null){
