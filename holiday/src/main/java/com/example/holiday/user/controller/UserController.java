@@ -118,5 +118,13 @@ public class UserController {
     }
 
 
+    @PostMapping("/user/like/{id}")
+    public ResponseEntity<Object> addLike(HttpSession session, @PathVariable Long id) {
+        Long userId = checkSession(session);
+        if (userId == null) return ResponseEntity.ok().body(new LoginResponse("No login info"));
+        Long result = userService.addLike(userId, id);
+        if (result == 0L) return ResponseEntity.ok().body(new LoginResponse("Like deleted"));
+        else return ResponseEntity.ok().body(new LoginResponse("Like added"));
+    }
 
 }

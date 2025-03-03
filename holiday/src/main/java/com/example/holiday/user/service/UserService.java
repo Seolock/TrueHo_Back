@@ -1,9 +1,12 @@
 package com.example.holiday.user.service;
 
+import com.example.holiday.login.LoginResponse;
 import com.example.holiday.user.controller.request.UserRequest;
 import com.example.holiday.user.controller.response.UserShowingResponse;
+import com.example.holiday.user.domain.Like;
 import com.example.holiday.user.domain.User;
 import com.example.holiday.user.dto.UserDto;
+import com.example.holiday.user.repository.LikeRepository;
 import com.example.holiday.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,7 @@ public class UserService {
 
 
     private final UserRepository userRepository;
+    private final LikeRepository likeRepository;
 
     private String[] list={"국제어문학부","경영경제학부","법학부","커뮤니케이션학부","상담심리사회복지학부","생명과학부","공간환경시스템공학부","전산전자공학부","콘텐츠융합디자인학부","기계제어공학부","ICT창업학부"};
 
@@ -92,4 +96,16 @@ public class UserService {
     }
 
 
+    public Long addLike(Long userId, Long id) {
+        Like like=likeRepository.findByFromUserAndToUser(userId, id).orElse(null);
+        if(like==null) {
+            Like newLike=new Like(userId,id);
+            likeRepository.save(newLike);
+            return 1L;
+        }
+        else{
+            likeRepository.delete(like);
+            return 0L;
+        }
+    }
 }
